@@ -1,4 +1,4 @@
-# spin
+# spin - HYPNO
 
 0.6.1 : added an optional overlay : 
 rename '/plugins/spin/res/overlayX.svg' as '/plugins/spin/res/overlay.svg' to see it :)
