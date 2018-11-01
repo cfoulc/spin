@@ -63,6 +63,12 @@ struct NoteKnob : SmallWhiteKnob {
 
 //////////////////////////////////////////////////////////////////////////////
 
+struct cache : SVGScrew {
+	cache() {
+		sw->setSVG(SVG::load(assetPlugin(plugin, "res/overlay.svg")));
+		box.size = sw->box.size;
+	}
+};
 
 struct HYPNOWidget : ModuleWidget {
 	HYPNOWidget(HYPNO *module);
@@ -78,6 +84,7 @@ HYPNOWidget::HYPNOWidget(HYPNO *module) : ModuleWidget(module) {
 	addChild(Widget::create<ScrewSilver>(Vec(box.size.x-30, 365)));
 
 	addParam(ParamWidget::create<NoteKnob>(Vec(18, 20), module, HYPNO::POT2_PARAM, -INFINITY, +INFINITY, 0.0)); 
+addChild(Widget::create<cache>(Vec(10, 0)));
 }
 
 Model *modelHYPNO = Model::create<HYPNO, HYPNOWidget>("spin", "HYPNO", "HYPNO", UTILITY_TAG);
