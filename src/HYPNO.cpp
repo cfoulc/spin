@@ -33,11 +33,11 @@ void HYPNO::step() {
 }
 //////////////////////////////////////////////////////////////////////////////
 
-struct SmallWhiteKnob : RoundKnob {
+struct SpinKnob : RoundKnob {
 
 int delta =0;
 
-	SmallWhiteKnob() {
+	SpinKnob() {
 		setSVG(SVG::load(assetPlugin(plugin, "res/spiral.svg")));
 	}
 	void step() override{
@@ -46,7 +46,6 @@ int delta =0;
 	}
 	void draw(NVGcontext *vg) override {
 		
-		//dirty = true;
 		value=delta/200.0;
 		RoundKnob::draw(vg);
 		delta = delta-1;
@@ -55,8 +54,8 @@ int delta =0;
 
 };
 
-struct NoteKnob : SmallWhiteKnob {
-	NoteKnob(){
+struct SKnob : SpinKnob {
+	SKnob(){
 	}
 
 };
@@ -72,7 +71,6 @@ struct cache : SVGScrew {
 
 struct HYPNOWidget : ModuleWidget {
 	HYPNOWidget(HYPNO *module);
-Widget* widgetToMove;
 };
 
 HYPNOWidget::HYPNOWidget(HYPNO *module) : ModuleWidget(module) {
@@ -83,8 +81,8 @@ HYPNOWidget::HYPNOWidget(HYPNO *module) : ModuleWidget(module) {
 	addChild(Widget::create<ScrewSilver>(Vec(15, 365)));
 	addChild(Widget::create<ScrewSilver>(Vec(box.size.x-30, 365)));
 
-	addParam(ParamWidget::create<NoteKnob>(Vec(18, 20), module, HYPNO::POT2_PARAM, -INFINITY, +INFINITY, 0.0)); 
-addChild(Widget::create<cache>(Vec(10, 0)));
+	addParam(ParamWidget::create<SKnob>(Vec(18, 20), module, HYPNO::POT2_PARAM, -INFINITY, +INFINITY, 0.0)); 
+	addChild(Widget::create<cache>(Vec(10, 0)));
 }
 
 Model *modelHYPNO = Model::create<HYPNO, HYPNOWidget>("spin", "HYPNO", "HYPNO", UTILITY_TAG);
